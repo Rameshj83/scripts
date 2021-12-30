@@ -1,0 +1,13 @@
+---
+- hosts: test
+  gather_facts: false
+  tasks:
+  - name: checking files
+    command: 'ls -l /home/webadmin'
+    ignore_errors: yes
+  - name:
+      yum: 
+        name: nginx
+        state: present
+        register: nginx_out
+    debug: vars=nginx_out

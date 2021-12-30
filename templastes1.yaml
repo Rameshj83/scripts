@@ -1,0 +1,10 @@
+---
+- hosts: test
+  vars:
+    variable1: 'Hello'
+    variables2: 'My first playbook using template'
+  tasks:
+    - name: Basic template example
+      template:
+        src: exampl1.j2
+        dest: /home/

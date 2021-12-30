@@ -1,0 +1,19 @@
+---
+- hosts: test
+  remote_user: ansadmin
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  connection: ssh
+  tasks:
+   - name: Add user ramesh on remote server
+     user:
+       name: ramesh
+       comment: "Unix admin"
+       uid: 2001
+       group: admin
+       shell: /bi/bash
+       generate_ssh_key: yes
+       ssh_key_bits: 2048
+       ssh_key_file: .ssh/id_rsa
+       expires: -1

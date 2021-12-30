@@ -1,0 +1,14 @@
+---
+- hosts: test
+  gather_facts: false
+  tasks:
+    - command: "ls /home/ansadmin"
+      register: ansadmin_out
+    - debug: var=ansadmin_out
+    - command: "ls /home/tmp/test"
+      register: tmp_out
+      #- debug: tmp_out
+      ignore_errors: yes
+    - command: "ls /home/ansadmin1"
+      ignore_errors: yes
+

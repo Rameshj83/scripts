@@ -1,0 +1,10 @@
+---
+- hosts: prod 
+  tasks:
+    - name: creating bulk users
+      user:
+       name: "{{ item.name }}"
+       uid: "{{ item.uid }}"
+       groups: "{{ item.groups }}"
+       state: present
+      with_items: "{{ user_details }}"

@@ -1,0 +1,9 @@
+---
+- hosts: test
+  tasks:
+    - name: Creating user with password
+      user:
+        name: testuser10
+        password: "{{ 'Hello@123' | password_hash('sha512') }}"      
+        shell: /bin/bash
+        update_password: on_create

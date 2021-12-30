@@ -1,0 +1,6 @@
+---
+- hosts: prod  
+  tasks:
+   - name: file copy
+     copy: src=/home/ramesh/testfile dest=/tmp/testfile
+

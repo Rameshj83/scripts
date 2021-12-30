@@ -1,0 +1,16 @@
+---
+- hosts: test
+  vars:
+    dbusers:
+      - username: test11
+        pass: Hello@123
+      - username: test12
+        pass: Hello@123
+      - username: test13
+        pass: Hello@123
+  tasks:
+    - name: Add users
+      user:
+        name: "{{ item.username }}"
+        password: "{{ item.pass | password_hash('sha512') }}"
+      loop: "{{ dbusers }}"

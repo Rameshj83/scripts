@@ -1,0 +1,33 @@
+ lvg:
+        pvs: "/dev/{{ raw_disks }}"
+        vg: "{{ vg_name }}"
+        pesize: "8"
+        pv_options: '-Z y'
+        force: no
+        state: present
+    - name: create the "{{ lv_name }}" logical volume
+      lvol:
+        vg: "{{ vg_name }}"
+        lv: "{{ lv_name }}"
+        size: "{{ require_lv_size }}"
+        active: yes
+        force: no
+        state: present
+    - name: create a filesystem
+      filesystem:
+        fstype: "{{ fs }}"
+        dev: "/dev/mapper/{{ vg_name }}-{{ lv_name }}"
+        force: no
+    - name: create a directory to mount the filesystem
+      file:
+        path: "{{ mount_point }}"
+        state: directory
+        mode: '0755'
+    - name: Mount the created "{{ fs }}" filesystem
+      mount:
+        path: "{{ mount_point }}"
+        src: "/dev/mapper/{{ vg_name }}-{{ lv_name }}"
+        fstype: "{{ fs }}"
+        opts: rw,nosuid,noexec
+        state: mounted
+

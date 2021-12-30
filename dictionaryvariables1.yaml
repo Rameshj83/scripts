@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  vars:
+    http_port: 8080
+    default_gateway:
+    vlans:
+      id: 10
+      port: 20
+  tasks:
+    name: configure default gateway
+    system_config:
+    default_gateway_ip: "{{ default_gateway }}"
+
+    name: label port on vlan10
+    vlan_config:
+      vlan_id: "{{ vlans['id'] }}"
+      port_id: 1/1/ {{ vlans['port'] }} 
+

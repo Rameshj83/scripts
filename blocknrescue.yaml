@@ -1,0 +1,22 @@
+---
+- hosts: prod
+  tasks:
+    - name: Install and start apache 
+      block:
+        - name: install apache2
+          yum:
+            name: httpd
+            update_cache: true
+            state: present
+        - name: enable and restart apache
+          service:
+            name: httpd
+            enabled: true
+            state: restarted
+      rescue:
+        - debug:
+            msg: "This part will be executedif block fails"
+      always:
+        - debug: 
+            msg: "This part will be executed always"
+

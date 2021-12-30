@@ -1,0 +1,7 @@
+---
+- hosts: test
+  tasks:
+   - name: Copy file with owner and permissions
+     copy:
+       remote_src: /home/charlie/test
+       dest: /home/ramesh/test

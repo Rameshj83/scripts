@@ -1,0 +1,10 @@
+---
+- hosts: prod  
+  tasks:
+   - name: file copy
+     copy: src=/home/ramesh/{{ item }} dest=/tmp/
+     with_items:
+       - testfile.1
+       - testfile.2       
+
+

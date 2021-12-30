@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  vars_files:
+    - web-secrets.yaml
+    - db-secrets.yaml
+  tasks:
+    - name: show secret1 value
+      debug:
+        msg: "{{ secret1 }}"
+    - name: show secret2 value
+      debug:
+        msg: "{{ secret2 }}"

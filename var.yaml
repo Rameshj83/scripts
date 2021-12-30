@@ -1,0 +1,5 @@
+---
+user_details:
+  - { name: testuser1, uid: 1008, groups: "adm" }
+  - { name: testuser2, uid: 1009, groups: "adm" }
+

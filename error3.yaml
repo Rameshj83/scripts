@@ -1,0 +1,11 @@
+---
+- hosts: test 
+  gather_facts: true
+  tasks:
+    - name: installing nginx
+      yum:
+        name: nginx
+        state: present
+        # when: ansible_distribution=="Redhat"
+        when: ansible_facts['distribution']=="Redhat"
+      #ignore_errors: yes

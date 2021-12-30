@@ -1,0 +1,15 @@
+---
+- hosts: test
+  gather_facts: true 
+  tasks:
+    - block:
+      - name: finding files in home
+        command: "ls /home/ansadmin1"
+        register: ans_out
+      - debug: var=ans_out
+      rescue:
+        - debug:
+            msg: "The given path doesnt exist"
+      always:
+        - debug:
+            msg: "This will execute always"

@@ -1,0 +1,10 @@
+---
+- hosts: test
+  tasks:
+    - name: Deleting user id
+      user:
+       name: testuser2 
+       uid: 1009 
+       groups: adm 
+       state: absent 
+

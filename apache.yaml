@@ -1,0 +1,5 @@
+---
+- hosts: test
+  tasks:
+    - name: Installing apache
+      yum: name=httpd update_cache=yes state=latest

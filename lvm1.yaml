@@ -1,0 +1,57 @@
+---
+- hosts: test
+  vars_prompt:
+    - name: "raw_disks"
+      prompt: "Raw disk used to create a physical volume"
+      private: no
+    - name: "vg_name"
+      prompt: "Name of the volume group"
+      private: no
+    - name: "lv_name"
+      prompt: "Name of the logical volume"
+      private: no
+    - name: "require_lv_size"
+      prompt: "size of the logical volume to be created"
+      private: no
+    - name: "fs"
+      prompt:  "type of filesystem need to be created"
+      private: no
+    - name: "mount_point"
+      prompt: "Mount the filesystem"
+      private: no
+  tasks:
+    - name: create the "{{ vg_name }}" volume group
+      lvg:
+        pvs: "/dev/{{ raw_disks }}"
+        vg: "{{ vg_name }}"
+        pesize: "8"
+        pv_options: '-Z y'
+        force: no
+        state: present
+    - name: create the "{{ lv_name }}" logical volume
+      lvol:
+        vg: "{{ vg_name }}"
+        lv: "{{ lv_name }}"
+        size: "{{ require_lv_size }}"
+        active: yes
+        force: no
+        state: present
+    - name: create a "{{ fs }}" filesystem on lvm "/dev/mapper/{{ vg_name }}-{{ lv_name }}"
+      filesystem:
+        fstype: "{{ fs }}"
+        dev: "/dev/mapper/{{ vg_name }}-{{ lv_name }}"
+        force: no
+    - name: Create a directory to mount the filesystem
+      file:
+        path: "{{ mount_point }}"
+        state: directory
+        mode: '0755'
+    - name: Mount the created "{{ fs }}" filesystem
+      mount:
+        path: "{{ mount_point }}"
+        src: "/dev/mapper/{{ vg_name }}-{{ lv_name }}"
+        fstype: "{{ fs }}"
+        opts: rw,nosuid,noexec
+        state: mounted   
+
+

@@ -1,0 +1,15 @@
+---
+- hosts: test
+  tasks:
+    - name: Creating user with password
+      user:
+        name: "{{ item }}"
+        password: "{{ 'Hello@123' | password_hash('sha512') }}"
+        shell: /bin/bash
+        update_password: on_create
+      with_items:
+        - testuser6
+        - testuser7
+        - testuser8
+    - name: Foce password change at first attempt
+      shell: chage -d 0 testuser8

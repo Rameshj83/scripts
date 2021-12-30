@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  vars:
+    continents:
+    - Africa
+    - Asia
+    - America
+  tasks:
+  - name: Ansible array variable example
+    debug:
+      msg: "{{ item }}"
+    with_items:
+    - "{{ continents }}"

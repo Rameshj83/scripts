@@ -1,0 +1,12 @@
+---
+- hosts: test
+  gather_facts: false
+  tasks:
+    - block:
+       - command: "ls /home/ansadmin"
+         register: ansadmin_out
+       - command: "ls /home/ansadmin1"
+         register: ansadmin_out1
+       - command: "ls /home/ansadmin2"
+         register: ansadmin_out2
+      ignore_errors: yes
